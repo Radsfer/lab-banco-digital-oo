@@ -1,24 +1,24 @@
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class Banco {
 
-	private String nome;
-	private List<Conta> contas;
+	private Map<Integer, Conta> contas = new HashMap<>();
 
-	public String getNome() {
-		return nome;
+	public void adicionarNovaConta(Conta conta) {
+		contas.put(conta.getNumero(), conta);
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public List<Conta> getContas() {
-		return contas;
-	}
-
-	public void setContas(List<Conta> contas) {
-		this.contas = contas;
+	public void imprimirContas() {
+		contas.values().stream()
+				.forEach(n -> n.imprimirExtrato());
 	}
 
 }

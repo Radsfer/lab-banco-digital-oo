@@ -1,6 +1,11 @@
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class Conta implements IConta {
-	
+
 	private static final int AGENCIA_PADRAO = 1;
 	private static int SEQUENCIAL = 1;
 
@@ -17,7 +22,12 @@ public abstract class Conta implements IConta {
 
 	@Override
 	public void sacar(double valor) {
-		saldo -= valor;
+		if (saldo != 0) {
+			saldo -= valor;
+		} else {
+			System.out.println("Saldo insuficiente!");
+		}
+
 	}
 
 	@Override
@@ -29,18 +39,6 @@ public abstract class Conta implements IConta {
 	public void transferir(double valor, IConta contaDestino) {
 		this.sacar(valor);
 		contaDestino.depositar(valor);
-	}
-
-	public int getAgencia() {
-		return agencia;
-	}
-
-	public int getNumero() {
-		return numero;
-	}
-
-	public double getSaldo() {
-		return saldo;
 	}
 
 	protected void imprimirInfosComuns() {
